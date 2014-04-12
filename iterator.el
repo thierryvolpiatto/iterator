@@ -5,6 +5,7 @@
 ;; Copyright (C) 2009 ~ 2014 Thierry Volpiatto, all rights reserved.
 
 ;; Compatibility: GNU Emacs 24.1+
+;; Package-Requires: ((emacs "24"))
 
 ;; X-URL: https://github.com/thierryvolpiatto/iterator
 
