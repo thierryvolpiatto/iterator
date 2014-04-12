@@ -6,7 +6,7 @@
 
 ;; Compatibility: GNU Emacs 24.1+
 
-;; X-URL: http://mercurial.intuxication.org/hg/elisp-iterators
+;; X-URL: https://github.com/thierryvolpiatto/iterator
 
 ;; This file is not part of GNU Emacs. 
 
