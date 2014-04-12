@@ -4,7 +4,7 @@
 
 ;; Copyright (C) 2009 ~ 2010 Thierry Volpiatto, all rights reserved.
 
-;; Compatibility: GNU Emacs 23.1+
+;; Compatibility: GNU Emacs 24.1+
 
 ;; X-URL: http://mercurial.intuxication.org/hg/elisp-iterators
 
