@@ -5,7 +5,7 @@
 ;; Copyright (C) 2009 ~ 2014 Thierry Volpiatto, all rights reserved.
 
 ;; Compatibility: GNU Emacs 24.1+
-;; Package-Requires: ((emacs "24"))
+;; Package-Requires: ((emacs "24") (cl-lib "0.5"))
 
 ;; X-URL: https://github.com/thierryvolpiatto/iterator
 
@@ -121,14 +121,14 @@ A simple replacement of CL `position'."
         (remove nil sub)))))
 
 (defun iter-scroll-up (seq elm size)
-  (let* ((pos (position (car (last elm)) seq))
+  (let* ((pos (cl-position (car (last elm)) seq))
          (sub (reverse (cl-subseq seq 0 pos)))
          (iterator (iter-scroll-list sub size)))
     (lambda ()
       (reverse (iter-next iterator)))))
 
 (defun iter-scroll-down (seq elm size)
-  (let* ((pos (position (car (last elm)) seq))
+  (let* ((pos (cl-position (car (last elm)) seq))
          (sub (cl-subseq seq pos))
          (iterator (iter-scroll-list sub size)))
     (lambda ()
