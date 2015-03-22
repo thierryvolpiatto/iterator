@@ -78,8 +78,8 @@ A simple replacement of CL `position'."
 (cl-defun iterator:sub-prec-circular (seq elm &key (test 'eq))
   "Infinite reverse iteration of SEQ starting at ELM."
   (let* ((rev-seq  (reverse seq))
-         (pos      (iterator:position elm rev-seq :test test))
-         (sub      (append (nthcdr (1+ pos) rev-seq) (cl-subseq rev-seq 0 pos)))
+         (pos      (1+ (iterator:position elm rev-seq :test test)))
+         (sub      (append (nthcdr pos rev-seq) (cl-subseq rev-seq 0 pos)))
          (iterator (iterator:list sub)))
     (lambda ()
       (let ((elm (iterator:next iterator)))
@@ -88,8 +88,8 @@ A simple replacement of CL `position'."
 
 (cl-defun iterator:sub-next-circular (seq elm &key (test 'eq))
   "Infinite iteration of SEQ starting at ELM."
-  (let* ((pos      (iterator:position elm seq :test test))
-         (sub      (append (nthcdr (1+ pos) seq) (cl-subseq seq 0 pos)))
+  (let* ((pos      (1+ (iterator:position elm seq :test test)))
+         (sub      (append (nthcdr pos seq) (cl-subseq seq 0 pos)))
          (iterator (iterator:list sub)))
     (lambda ()
       (let ((elm (iterator:next iterator)))
