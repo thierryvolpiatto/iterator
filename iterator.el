@@ -68,12 +68,12 @@ A simple replacement of CL `position'."
 
 (defun iterator:circular (seq)
   "Infinite iteration on SEQ."
-  (let ((it (iterator:list seq))
-        (lis seq))
-    (lambda ()
-      (let ((elm (iterator:next it)))
-        (or elm
-            (progn (setq it (iterator:list lis)) (iterator:next it)))))))
+  (let ((lis seq))
+     (lambda ()
+       (let ((elm (car lis)))
+         (setq lis (pcase lis
+                     (`(,_ . ,ll) (or ll seq))))
+         elm))))
 
 (cl-defun iterator:sub-prec-circular (seq elm &key (test 'eq))
   "Infinite reverse iteration of SEQ starting at ELM."
@@ -84,7 +84,8 @@ A simple replacement of CL `position'."
     (lambda ()
       (let ((elm (iterator:next iterator)))
         (or elm
-            (progn (setq iterator (iterator:list sub)) (iterator:next iterator)))))))
+            (progn (setq iterator (iterator:list sub))
+                   (iterator:next iterator)))))))
 
 (cl-defun iterator:sub-next-circular (seq elm &key (test 'eq))
   "Infinite iteration of SEQ starting at ELM."
@@ -97,7 +98,6 @@ A simple replacement of CL `position'."
                   (setq iterator (iterator:list sub))
                   (iterator:next iterator)))))))
 
-
 (defun iterator:apply-fun-on-list (fun seq)
   "Create an iterator that apply function FUN on each elm of SEQ."
   (let ((lis seq)
@@ -107,7 +107,6 @@ A simple replacement of CL `position'."
                      (funcall fn (car lis)))))
         (setq lis (cdr lis))
         elm))))
-
 
 (defun iterator:scroll-list (seq size)
   "Create an iterator of the cl-subseq of the cdr of SEQ ending to SIZE."
