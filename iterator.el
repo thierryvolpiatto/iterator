@@ -132,7 +132,16 @@ A simple replacement of CL `position'."
          (iterator (iterator:scroll-list sub size)))
     (lambda ()
       (iterator:next iterator))))
-                  
+
+(defun iterator:fibo ()
+  "Fibonacci generator."
+  (let ((a 0)
+        (b 1))
+    (lambda ()
+      (cl-psetq a b
+                b (+ a b))
+      a)))
+
 ;;; Provide
 (provide 'iterator)
 
