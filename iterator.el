@@ -71,8 +71,7 @@ A simple replacement of CL `position'."
   (let ((lis seq))
      (lambda ()
        (let ((elm (car lis)))
-         (setq lis (pcase lis
-                     (`(,_ . ,ll) (or ll seq))))
+         (setq lis (pcase lis (`(,_ . ,ll) (or ll seq))))
          elm))))
 
 (cl-defun iterator:sub-prec-circular (seq elm &key (test 'eq))
@@ -80,23 +79,17 @@ A simple replacement of CL `position'."
   (let* ((rev-seq  (reverse seq))
          (pos      (1+ (iterator:position elm rev-seq :test test)))
          (sub      (append (nthcdr pos rev-seq) (cl-subseq rev-seq 0 pos)))
-         (iterator (iterator:list sub)))
+         (iterator (iterator:circular sub)))
     (lambda ()
-      (let ((elm (iterator:next iterator)))
-        (or elm
-            (progn (setq iterator (iterator:list sub))
-                   (iterator:next iterator)))))))
+      (iterator:next iterator))))
 
 (cl-defun iterator:sub-next-circular (seq elm &key (test 'eq))
   "Infinite iteration of SEQ starting at ELM."
   (let* ((pos      (1+ (iterator:position elm seq :test test)))
          (sub      (append (nthcdr pos seq) (cl-subseq seq 0 pos)))
-         (iterator (iterator:list sub)))
+         (iterator (iterator:circular sub)))
     (lambda ()
-      (let ((elm (iterator:next iterator)))
-        (or elm (progn
-                  (setq iterator (iterator:list sub))
-                  (iterator:next iterator)))))))
+      (iterator:next iterator))))
 
 (defun iterator:apply-fun-on-list (fun seq)
   "Create an iterator that apply function FUN on each elm of SEQ."
