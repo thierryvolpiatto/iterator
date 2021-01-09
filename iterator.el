@@ -7,6 +7,7 @@
 ;; Compatibility: GNU Emacs 24.1+
 ;; Package-Requires: ((emacs "24") (cl-lib "0.5"))
 
+;; Version: 1.0
 ;; X-URL: https://github.com/thierryvolpiatto/iterator
 
 ;; This file is not part of GNU Emacs. 
